@@ -1,9 +1,10 @@
 from django.db import models
 from users.models import User
-from .utils import car_image_upload_path
+from .utils import car_image_upload_path, brand_image_upload_path, model_image_upload_path
 
 class Brand(models.Model):
     name = models.CharField(max_length=100, unique=True)
+    image = models.ImageField(upload_to=brand_image_upload_path, null=True, blank=True)
 
     def __str__(self):
         return self.name
@@ -13,6 +14,8 @@ class Model(models.Model):
     name=models.CharField(max_length=100)
     start_year = models.PositiveIntegerField(null=True, blank=True)
     end_year = models.PositiveIntegerField(null=True, blank=True)
+    image = models.ImageField(upload_to=model_image_upload_path, null=True, blank=True)
+
 
     class Meta:
         unique_together = ('brand', 'name')
