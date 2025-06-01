@@ -4,12 +4,13 @@ from .models import Car, Brand, Model, VehicleType, Color, CarImage
 class BrandSerializer(serializers.ModelSerializer):
     class Meta:
         model = Brand
-        fields = ['id', 'name']
+        fields = ['id', 'name', 'image']
 
 class ModelSerializer(serializers.ModelSerializer):
+    brand = serializers.CharField(source='brand.name', read_only=True)
     class Meta:
         model = Model
-        fields = ['id', 'name', 'brand', 'start_year', 'end_year']
+        fields = ['id', 'name', 'brand', 'start_year', 'end_year','image']
 
 class VehicleTypeSerializer(serializers.ModelSerializer):
     class Meta:
@@ -45,6 +46,6 @@ class CarSerializer(serializers.ModelSerializer):
         fields = [
             'id', 'price',
             'brand', 'model',
-            'images','year'
+            'images','year', 'created_at'
         ]
         read_only_fields = ('id', 'created_at', 'owner', 'year')

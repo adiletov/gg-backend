@@ -1,0 +1,12 @@
+__pycache__/
+*.py[cod]
+*.sqlite3
+
+/media/
+/uploads/
+
+.vscode/
+
+**/migrations/
+
+*.log
