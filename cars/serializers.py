@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from .models import Car, Brand, Model, VehicleType, Color, CarImage
+from users.serializers import UserSerializer
 
 class BrandSerializer(serializers.ModelSerializer):
     class Meta:
@@ -37,6 +38,7 @@ class CarImageSerializer(serializers.ModelSerializer):
 
 
 class CarSerializer(serializers.ModelSerializer):
+    owner = UserSerializer(read_only=True)
     brand = serializers.CharField(source='brand.name', read_only=True)
     model = serializers.CharField(source='model.name', read_only=True)
     images = CarImageSerializer(many=True, read_only=True)
@@ -44,7 +46,7 @@ class CarSerializer(serializers.ModelSerializer):
     class Meta:
         model = Car
         fields = [
-            'id', 'price',
+            'id','owner', 'price',
             'brand', 'model',
             'images','year', 'created_at'
         ]
