@@ -9,7 +9,7 @@ class UserSerializer(serializers.ModelSerializer):
     contacts = ContactSerializer(many=True, read_only=True)
     class Meta:
         model = User
-        fields = ('id', 'fullname', 'email', 'is_dealer', 'avatar', 'contacts')
+        fields = ('id', 'fullname', 'email', 'is_dealer', 'avatar', 'contacts', 'address')
     
     def create(self, validated_data):
         print(validated_data)

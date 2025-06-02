@@ -1,5 +1,6 @@
 from django.db import models
 from users.models import User
+from dealers.models import Dealer
 from .utils import car_image_upload_path, brand_image_upload_path, model_image_upload_path
 
 class Brand(models.Model):
@@ -37,11 +38,12 @@ class Color(models.Model):
 
 class Car(models.Model):
     owner = models.ForeignKey(User, on_delete=models.CASCADE, related_name='cars')
+    dealer = models.ForeignKey(Dealer, related_name='cars', on_delete=models.CASCADE, null=True, blank=True)
     brand = models.ForeignKey(Brand, on_delete=models.CASCADE)
     model = models.ForeignKey(Model, on_delete=models.CASCADE)
     vehicle_type = models.ForeignKey(VehicleType, on_delete=models.CASCADE)
     price = models.DecimalField(max_digits=12, decimal_places=2)
-    mileage = models.PositiveIntegerField(help_text='Пробег в километрах')
+    mileage = models.PositiveIntegerField(help_text='Пробег в километрах', null=True, blank=True)
     color = models.ForeignKey(Color, on_delete=models.SET_NULL, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     description = models.CharField(max_length=255)

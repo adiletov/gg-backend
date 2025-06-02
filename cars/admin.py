@@ -8,9 +8,9 @@ class CarImageInline(admin.TabularInline):
 @admin.register(Car)
 class CarAdmin(admin.ModelAdmin):
     inlines = [CarImageInline]
-    list_display = ('id', 'brand', 'model', 'vehicle_type', 'owner', 'year')
-    search_fields = ('brand__name', 'model__name')
-    list_filter = ('brand', 'vehicle_type')
+    list_display = ('id', 'brand', 'model', 'vehicle_type', 'owner', 'year', 'dealer')
+    search_fields = ('brand__name', 'model__name',)
+    list_filter = ('brand', 'vehicle_type', 'dealer')
     
 @admin.register(Brand)
 class BrandAdmin(admin.ModelAdmin):

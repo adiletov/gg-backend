@@ -23,7 +23,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/auth/', include('authentication.urls')),
     path('api/', include('users.urls')),
-    path('api/', include('cars.urls'))
+    path('api/', include('cars.urls')),
+    path('api/', include('dealers.urls'))
 ]
 
 

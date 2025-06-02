@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'authentication',
     'users',
     'cars',
+    'dealers',
     
     'rest_framework',
 ]
