@@ -1,10 +1,15 @@
 from rest_framework import serializers
-from .models import User
+from .models import User, Contact
 
+class ContactSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Contact
+        fields = ['id', 'type', 'value']
 class UserSerializer(serializers.ModelSerializer):
+    contacts = ContactSerializer(many=True, read_only=True)
     class Meta:
         model = User
-        fields = ('id', 'fullname', 'email', 'phone', 'is_dealer', 'avatar', 'password')
+        fields = ('id', 'fullname', 'email', 'is_dealer', 'avatar', 'contacts')
     
     def create(self, validated_data):
         print(validated_data)
@@ -18,5 +23,5 @@ class UserSerializer(serializers.ModelSerializer):
 class UserUpdateSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ('fullname', 'email', 'phone', 'is_dealer', 'avatar')
+        fields = ('fullname', 'email', 'is_dealer', 'avatar', 'contacts')
         read_only_fields = ('email',)
