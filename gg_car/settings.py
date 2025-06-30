@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'dealers',
     
     'rest_framework',
+    'drf_yasg'
 ]
 
 AUTH_USER_MODEL = 'users.User'
