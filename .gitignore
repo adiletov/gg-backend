@@ -4,9 +4,13 @@ __pycache__/
 
 /media/
 /uploads/
+/staticfiles/
+/static/
+/media/
 
 .vscode/
 
 **/migrations/
 
 *.log
+*.pyc
