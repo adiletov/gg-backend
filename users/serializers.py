@@ -9,11 +9,13 @@ class UserSerializer(serializers.ModelSerializer):
     contacts = ContactSerializer(many=True, read_only=True)
     class Meta:
         model = User
-        fields = ('id', 'fullname', 'email', 'is_dealer', 'avatar', 'contacts', 'address')
+        fields = ('id', 'fullname', 'email', 'is_dealer', 'avatar', 'contacts', 'address', 'password')
+        password = serializers.CharField(write_only=True)
     
     def create(self, validated_data):
         print(validated_data)
         password = validated_data.pop('password')
+
         user = User(**validated_data)
         user.set_password(password)
         user.save()
