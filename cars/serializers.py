@@ -41,11 +41,14 @@ class CarImageSerializer(serializers.ModelSerializer):
 class CarSerializer(serializers.ModelSerializer):
     model_id = serializers.PrimaryKeyRelatedField(
         queryset=Model.objects.all(), source='model', write_only=True)
-    vehicle_type_id = serializers.PrimaryKeyRelatedField(
-        queryset=VehicleType.objects.all(), source='vehicle_type', write_only=True)
+    color_id = serializers.PrimaryKeyRelatedField(
+        queryset=Color.objects.all(), source='color', write_only=True)
     dealer_id = serializers.PrimaryKeyRelatedField(
         queryset=Dealer.objects.all(), source='dealer', required=False, allow_null=True, write_only=True)
+    vehicle_type_id = serializers.PrimaryKeyRelatedField(
+        queryset=VehicleType.objects.all(), source='vehicle_type', write_only=True)
     brand = serializers.CharField(source='brand.name', read_only=True)
+    color = serializers.CharField(source='color.name', read_only=True)
     model = serializers.CharField(source='model.name', read_only=True)
     images = CarImageSerializer(many=True, read_only=True)
     images = serializers.ListField(
@@ -53,19 +56,19 @@ class CarSerializer(serializers.ModelSerializer):
         write_only=True,
         required=False
     )
+    vehicle_type = serializers.CharField(source='vehicle_type.name', read_only=True)
     images_urls = serializers.SerializerMethodField(read_only=True)
     dealer = DealerShortSerializer(read_only=True)
 
     class Meta:
         model = Car
         fields = [
-            'id','dealer', 'price','model_id','vehicle_type_id','dealer_id',
-            'brand', 'model',
+            'id','dealer', 'price','model_id','vehicle_type','vehicle_type_id','dealer_id','vehicle_type',
+            'brand', 'model','color_id', 'color',
             'images','year', 'created_at',
             'images_urls'
         ]
         read_only_fields = ('id', 'created_at', 'owner','brand','dealer')
-        
     def get_images_urls(self, obj):
         return [image.image.url for image in obj.images.all()]
     
